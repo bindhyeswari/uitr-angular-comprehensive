@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base.css"/>
+    <title></title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).config(function($provide) {
+            $provide.provider('Greet', function () {
+                this.$get = function () {
+                    return {
+                        hello: function () {
+                            return 'Hello World!';
+                        }
+                    };
+                };
+            });
+        }).controller('MyController', function ($scope, Greet) {
+            $scope.message = Greet.hello();
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        {{message}}
+    </div>
+</body>
+</html>

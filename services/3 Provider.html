@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+
+        var instance = new SomeserviceProvider();
+
+        angular.module('myApp', []).config(function (SomeserviceProvider) {
+            console.log(SomeserviceProvider);
+
+        }).controller('MyController', function ($scope, Someservice) {
+            Someservice.sayHello();
+            $scope.message = 'Hello';
+        }).provider('Someservice', SomeserviceProvider);
+
+        // test
+
+        function SomeserviceProvider() {
+            this.$get = function () {
+                return {
+                    sayHello: function () {
+                        console.log('Hello from Someservice!');
+                    }
+                };
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+<div ng-controller="MyController">
+    {{message}}
+</div>
+</body>
+</html>

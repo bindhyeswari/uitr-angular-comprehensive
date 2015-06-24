@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello';
+        }).directive('cicero', function () {
+            return  {
+                priority: 10,
+                terminal: true, // put this as false and showcase
+                template: 'This is Socrate\'s directive!',
+                link: function (scope, element, attrs) {
+                    element.on('click', function () {
+                        console.log('Hello');
+                        scope.$apply(function () {
+                            scope.message = 'Changed by Socrates!';
+                        });
+                    });
+                }
+            };
+        }).directive('plato', function () {
+            return {
+                priority: 3,
+                link: function (scope, element, attrs) {
+                    element.on('click', function () {
+                        console.log('Hi');
+                        scope.$apply(function () {
+                            scope.message = 'Changed by Plato!';
+                        });
+                    });
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+
+        <input type="text" ng-model="message"/>
+        <div cicero plato></div>
+
+    </div>
+</body>
+</html>

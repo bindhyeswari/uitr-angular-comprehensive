@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+    <style>
+        .large {
+            font-size: 4em;
+            transition: all 3s ease;
+        }
+    </style>
+</head>
+<body>
+    <button>Make me grow!</button>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script>
+        angular.module('myApp', ['ngAnimate']).controller('MyController', function ($scope) {
+            $scope.message = 'Hello World!';
+        }).directive('button', function ($animate) {
+            return {
+                restrict: 'E',
+                link: function (scope, element) {
+
+
+                    element.on('click', function () {
+                        element.addClass('large');
+                    });
+                }
+            };
+        });
+    </script>
+</body>
+</html>

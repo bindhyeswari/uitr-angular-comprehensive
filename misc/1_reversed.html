@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+    <div ng-controller="MyController">
+        {{ message }}
+    </div>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello World!';
+            $scope.reversed = function () {
+                return $scope.message.split('').reverse().join();
+            };
+        });
+    </script>
+</body>
+</html>

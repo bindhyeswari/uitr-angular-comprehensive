@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello';
+        }).directive('newton', function () {
+            return {
+                template: '<div>Multiple Directives with isolated scope .. </div>',
+                scope: {
+                    data: '@newton'
+                },
+                link: function (scope, elem) {
+                    elem.on('click', function () {
+                        console.log(scope.data);
+                    });
+                }
+            };
+        }).directive('cavendish', function () {
+            return {
+                template: '<div>Multiple Directives with isolated scope .. Cavendish</div>',
+                scope: {
+                    data: '@cavendish'
+                },
+                link: function (scope, elem) {
+                    elem.on('click', function () {
+                        console.log(scope.data);
+                    });
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        <div newton="physics" cavendish="geo"></div>
+    </div>
+</body>
+</html>

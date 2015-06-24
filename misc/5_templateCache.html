@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+    <script type="text/ng-template" id="partial.html">
+        <div>
+            <section>
+                <h1>Partial View</h1>
+                <div>Partial information ... </div>
+                <div>Provide template: in the div for the $templateCache.get()</div>
+                <div>Notice the templateUrl for the script with id</div>
+            </section>
+        </div>
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        <ul>
+            <li>Create a script tag with an id</li>
+            <li>Load with templateCache</li>
+        </ul>
+    </div>
+    <div info></div>
+    <div data></div>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', [])
+                .run(function ($templateCache) {
+                    $templateCache.put('detailed.html', '<div><section><h1>Detailed View</h1><div>Detailed information ... </div></section></div>');
+                })
+                .controller('MyController', function ($scope) {
+                    $scope.message = 'Hello World!';
+                })
+                .directive('info', function ($templateCache) {
+                    console.log($templateCache.get('partial.html'));
+                    return {
+                        templateUrl: 'partial.html'
+                    }
+                })
+                .directive('data', function ($templateCache) {
+                    return {
+                        template: $templateCache.get('detailed.html')
+                    }
+                });
+
+    </script>
+</body>
+</html>

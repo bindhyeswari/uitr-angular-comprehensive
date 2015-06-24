@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+    <div ng-controller="MyController as my">
+        <form name="info" ng-submit="my.formsubmit()">
+            <input type="text" ng-model="my.user.email"/>
+            <input type="submit" value="Submit Form"/>
+        </form>
+    </div>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope) {
+            var my = this;
+            my.formsubmit = function () {
+                console.log($scope.info);
+                var frm = $scope.info;
+                console.log('Is the form dirty?', frm.$dirty);
+            };
+        });
+    </script>
+</body>
+</html>

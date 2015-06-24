@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script id="state1.html" type="text/ng-template">
+        <h1>State 1</h1>
+        <hr/>
+        <a ui-sref="state1.list">Show List</a>
+        <div ui-view></div>
+    </script>
+    <script id="state2.html" type="text/ng-template">
+        <h1>State 2</h1>
+        <hr/>
+        <a ui-sref="state2.list">Show List</a>
+        <div ui-view></div>
+    </script>
+    <script id="state1.list.html" type="text/ng-template">
+        <h1>List of State 1 Items</h1>
+        <ul>
+            <li ng-repeat="item in items">{{item}}</li>
+        </ul>
+    </script>
+    <script id="state2.list.html" type="text/ng-template">
+        <h1>List of State 2 Items</h1>
+        <ul>
+            <li ng-repeat="item in items">{{item}}</li>
+        </ul>
+    </script>
+    <link rel="stylesheet" href="../base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-ui/build/angular-ui.js"></script>
+    <script>
+        angular.module('myApp', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
+
+        });
+    </script>
+</head>
+<body>
+    <div ui-view>
+        <a ui-sref="state1">State 1</a>
+        <a ui-sref="state2">State 2</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+       angular.module('myApp', []).config(function ($httpProvider) {
+            $httpProvider.interceptors.push(function ($q) {
+                return {
+                    request: function(config) {
+                        console.log(config);
+                        return config;
+                    },
+                    response: function (result) {
+                        console.log('repos: ');
+                        console.log(result.data.total_count);
+                        return $q(function (resolve, reject) {
+                            resolve(result.data.total_count);
+                        });
+                    },
+                    responseError: function (config) {
+                        console.log(config);
+                        return config;
+                    }
+                }
+            });
+       }).run(function ($http) {
+           $http.get('https://api.github.com/search/repositories?q=angularjs').then(function (data) {
+               console.log('The number of repos is: ' + data);
+           });
+       });
+    </script>
+</body>
+</html>

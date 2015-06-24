@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).run(function ($injector) {
+            console.log($injector.has('$http'));
+            console.log($injector.annotate(test, false));
+
+
+            $injector.invoke(test);
+
+            function test($http) {
+
+                // notice that $http has not been declared as  dependency for the base function
+                $http.get('https://api.github.com/search/repositories?q=nodejs').success(function (data) {
+                    console.log(data);
+                });
+            }
+        }).provider('name', ProviderConstructor).factory('name2', serviceFactory);
+
+        function ProviderConstructor() {
+            this.$get = serviceFactory;
+        }
+
+        function serviceFactory() {
+            return {
+                getContacts: function () {
+
+                }
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+</body>
+</html>

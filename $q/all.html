@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+    <div ng-controller="MyController">
+        {{ message }}
+    </div>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope, Github) {
+            Github.searchAll(['angularjs', 'nodejs']).then(function (data) {
+                $scope.data = data;
+                console.log(data);
+            });
+            $scope.message = 'hello';
+        }).service('Github', function ($http, $q) {
+            var url = 'https://api.github.com/search/repositories?q=';
+
+            return {
+                searchAll: function (arr_terms) {
+                    return $q.all(arr_terms.map(getPromise));
+                }
+            };
+
+
+
+            function getPromise(term) {
+                return $q(function (resolve, reject) {
+                    $http.get(url + term).then(function (data) {
+                        resolve(data);
+                    }, function (data) {
+                        reject(data);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

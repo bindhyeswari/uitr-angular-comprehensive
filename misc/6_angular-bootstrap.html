@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+    <div id="app1">{{random}}</div>
+    <div id="app2">{{random}}</div>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).run(function($rootScope) {
+            $rootScope.random = Math.random();
+        });
+
+        angular.bootstrap(document.getElementById('app1'), ['myApp']);
+        angular.bootstrap(document.getElementById('app2'), ['myApp']);
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+</head>
+<body>
+    <div ng-controller="MyController">
+
+        <input type="text" ng-model="data"/>
+
+
+        <div ng-switch="t">
+            <div ng-switch-when="true">Is a number</div>
+            <div ng-switch-when="false">Is not a number</div>
+        </div>
+
+    </div>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.$watch('data', function () {
+                $scope.t = /^\d+$/.test($scope.data);
+            });
+        });
+    </script>
+</body>
+</html>
