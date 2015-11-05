@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        var app = angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello';
+        });
+
+        // first directive
+        app.directive('first', function () {
+            return {
+                scope: {},
+                template: '<div><h1>Prime Directive</h1><div><em>{{message}}</em><br/><em>{{myc.data}}</em> <br/> <input type="text" ng-model="myc.data"/> </div></div>',
+                controller: function ($scope) {
+                    $scope.message = 'info from first directive';
+                    this.data = 'Data available within the controller of the first/prime directive ... ';
+                },
+                controllerAs: 'myc'
+            };
+        });
+
+        app.directive('second', function () {
+            return {
+                require: 'first', // or an array ['first'] --> This provides the controller from the first directive as an input
+                link: function (scope, element, attrs, controller) {
+                    console.dir(controller);
+                    console.log(controller.data);
+
+                    scope.$watch(function () {
+                        return controller.data;
+                    }, function (newval, oldval) {
+                        console.log('I can see changes in the prime directive controller data!!! ----- ', newval);
+                    });
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        <em>{{message}}</em>
+
+        <div first second></div>
+    </div>
+</body>
+</html>
