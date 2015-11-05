@@ -11,17 +11,18 @@
         }).directive('ramyaNarayanaswamy', function () {
             return {
                 transclude: true,
-                template: '<div>Hello from ramya!<div ng-transclude></div></div>'
+                template: '<div>Hello from ramya!{{message}}<div ng-transclude></div></div>'
             }
         });
     </script>
 </head>
 <body>
+
     <div ng-controller="MyController">
         {{message}}
 
         <div ramya-narayanaswamy>
-            <div>Other data ... should not be lost...</div>
+            <div>{{message}}</div>
         </div>
 
     </div>

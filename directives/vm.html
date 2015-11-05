@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('ParentController', function ($scope) {
+            var vm = this;
+            vm.message = 'Hello from ParentController!';
+            $scope.message = 'Hello from ParentController!';
+            $scope.valid = true;
+        }).controller('ChildController', function ($scope) {
+            var vm = this;
+            vm.message = 'Hello from ChildController!';
+            $scope.message = 'Hello from ChildController!';
+        }).directive('chrisPattern', function () {
+            return {
+                scope: {
+                    valid: '='
+                },
+                link: function (scope, element) {
+                    // listen to the element
+                    // format it
+
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="ParentController as p">
+        <div ng-controller="ChildController as c">
+            This is the message from ParentController: {{message}}
+            <div>{{p.message}}</div>
+            <div>{{c.message}}</div>
+        </div>
+        <input type="text" chris-pattern="" valid="validity"/>
+    </div>
+</body>
+</html>

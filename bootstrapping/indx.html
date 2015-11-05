@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello';
+        });
+
+        angular.module('myApp2', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello from myApp 2';
+        });
+
+
+    </script>
+</head>
+<body>
+    <div>
+        <div ng-controller="MyController">
+            {{message}}
+        </div>
+    </div>
+    <div>
+        <div ng-controller="MyController">
+            {{message}}
+        </div>
+    </div>
+    <script>
+        angular.bootstrap(document.body.firstElementChild, ['myApp']);
+        angular.bootstrap(document.body.children[1], ['myApp2']);
+    </script>
+</body>
+</html>

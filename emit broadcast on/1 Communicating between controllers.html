@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        var app = angular.module('myApp', []).controller('MyController', function ($scope, $rootScope) {
+            $scope.message = 'message from MYController';
+            $scope.message2 = 'message from Controller2';
+
+            $rootScope.$on('tasks.deletetask', function (event, data) {
+                console.log(arguments);
+                $scope.message = data;
+            })
+        });
+
+        app.controller('Controller2', function ($scope, $rootScope) {
+            $scope.message = 'message from Controller2';
+
+            var counter = 0;
+            $scope.updateMessage = function () {
+                $scope.message = 'message from Controller2 : ' + ++counter;
+                $rootScope.$emit('tasks.deletetask', $scope.message);
+            }
+
+        });
+    </script>
+</head>
+<body>
+<div ng-controller="MyController">
+    {{message}}
+    <div>{{message2}}</div>
+</div>
+
+<div ng-controller="Controller2">
+    {{message}}
+    <button ng-click="updateMessage()">Change Data</button>
+</div>
+</body>
+</html>
